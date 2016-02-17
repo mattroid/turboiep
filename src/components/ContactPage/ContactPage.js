@@ -28,6 +28,7 @@ class ContactPage extends Component {
       <div className={s.root}>
         <div className={s.container}>
           <h1>{title}</h1>
+          <h2>Hello</h2>
           <p>...</p>
         </div>
       </div>
