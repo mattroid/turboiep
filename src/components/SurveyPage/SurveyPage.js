@@ -21,7 +21,7 @@ class SurveyPage extends Component {
     className: PropTypes.string,
   }
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       questions: [
@@ -30,31 +30,18 @@ class SurveyPage extends Component {
       ]
     }
   }
+
   render() {
 
     return (
       <div>
-        Student Profile
-        <Table
-          rowHeight={30}
-          rowsCount={this.state.questions.length}
-          width={300}
-          height={300}
-          headerHeight={50}
-        >
-          <Column
-            header={<Cell>Area</Cell>}
-            //cell={<Question data={this.state.questions} field="QuestionText" />}
-            cell={({rowIndex,...props})=>(
-              <Cell {...props}>{this.state.questions[rowIndex]["QuestionText"]}</Cell>
-            )}
-          />
-        </Table>
-
+        {this.state.questions.map((x, i) =>
+          <Question className={"inactive"} questionText={x.QuestionText}/>
+        )
+        }
       </div>
     )
   }
-
 }
 
 export default withStyles(SurveyPage, s)

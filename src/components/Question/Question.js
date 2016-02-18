@@ -7,28 +7,26 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Question.scss';
-import Link from '../Link';
+import React, { Component, PropTypes } from 'react'
+import cx from 'classnames'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import s from './Question.scss'
+import Link from '../Link'
 import {Table, Column, Cell} from 'fixed-data-table'
 
 class Question extends Component {
 
   static propTypes = {
-    questionText: PropTypes.string.isRequired
-  };
+    questionText: PropTypes.string.isRequired,
+    className: PropTypes.string
+  }
 
   render() {
-    const {rowIndex, field, data, ...props} = this.props
     return (
-      <Cell {...props}>
-        {data[rowIndex][field]}
-      </Cell>
-    );
+        <div className={this.props.className}>{this.props.questionText}</div>
+    )
   }
 
 }
 
-export default withStyles(Question, s);
+export default withStyles(Question, s)
