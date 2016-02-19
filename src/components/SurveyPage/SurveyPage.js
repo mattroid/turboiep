@@ -25,8 +25,15 @@ class SurveyPage extends Component {
     super(props)
     this.state = {
       questions: [
-        {QuestionText: "Q1"},
-        {QuestionText: "Q2"}
+        {QuestionText: "Students demonstrate limited to no mastery of knowledge and skills related to essentialized standards that do not meet proficiency."},
+        {QuestionText: "Students demonstrate inconsistent or partial mastery of knowledge and skills related to essentialized standards that do not meet proficiency"},
+        {QuestionText: "Students demonstrate adept knowledge and skills related to essentialized standards that meet proficiency."},
+        {QuestionText: "Students demonstrate exceptional knowledge and skills related to essentialized standards that exceed the requirements for proficiency"},
+        {QuestionText: "Performance indicates that the student has limited to no understanding of academic concepts aligned to essentialized standards"},
+        {QuestionText: "Performance indicates an inconsistent or partial understanding of academic concepts aligned to essentialized standards"},
+        {QuestionText: "Performance indicates consistent understanding of academic concepts aligned to essentialized standards."},
+        {QuestionText: "Performance indicates superior understanding of academic concepts aligned to essentialized standards."}
+
       ]
     }
   }
@@ -36,8 +43,8 @@ class SurveyPage extends Component {
     return (
       <div>
         {this.state.questions.map((x, i) =>
-          <Question className={"inactive"} questionText={x.QuestionText}/>
-        )
+              <Question className={cx(s.inactive)} questionText={x.QuestionText}/>
+            )
         }
       </div>
     )
