@@ -23,7 +23,7 @@ class Question extends Component {
 
   render() {
     return (
-        <div className={this.props.className}>{this.props.questionText}</div>
+        <div className={cx(s.question, this.props.className)}>{this.props.questionText}</div>
     )
   }
 
