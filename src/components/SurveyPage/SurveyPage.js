@@ -12,8 +12,9 @@ import cx from 'classnames'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './SurveyPage.scss'
 import Link from '../Link'
-import Question from '../Question'
+import QuestionRow from './QuestionRow'
 import {Table, Column, Cell} from 'fixed-data-table'
+import update from 'react-addons-update'
 
 class SurveyPage extends Component {
 
@@ -24,16 +25,22 @@ class SurveyPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      questions: [
-        {QuestionText: "Students demonstrate limited to no mastery of knowledge and skills related to essentialized standards that do not meet proficiency."},
-        {QuestionText: "Students demonstrate inconsistent or partial mastery of knowledge and skills related to essentialized standards that do not meet proficiency"},
-        {QuestionText: "Students demonstrate adept knowledge and skills related to essentialized standards that meet proficiency."},
-        {QuestionText: "Students demonstrate exceptional knowledge and skills related to essentialized standards that exceed the requirements for proficiency"},
-        {QuestionText: "Performance indicates that the student has limited to no understanding of academic concepts aligned to essentialized standards"},
-        {QuestionText: "Performance indicates an inconsistent or partial understanding of academic concepts aligned to essentialized standards"},
-        {QuestionText: "Performance indicates consistent understanding of academic concepts aligned to essentialized standards."},
-        {QuestionText: "Performance indicates superior understanding of academic concepts aligned to essentialized standards."}
-
+      questionRows: [[
+        {id: 1, checked: false, questionText: "Students demonstrate limited to no mastery of knowledge and skills related to essentialized standards that do not meet proficiency."},
+        {id: 2, checked: false, questionText: "Students demonstrate inconsistent or partial mastery of knowledge and skills related to essentialized standards that do not meet proficiency"},
+        {id: 3, checked: false, questionText: "Students demonstrate adept knowledge and skills related to essentialized standards that meet proficiency."},
+        {id: 4, checked: false, questionText: "Students demonstrate exceptional knowledge and skills related to essentialized standards that exceed the requirements for proficiency"},
+        ],[
+        {id: 1, checked: false, questionText: "Students demonstrate limited to no mastery of knowledge and skills related to essentialized standards that do not meet proficiency."},
+        {id: 2, checked: false, questionText: "Students demonstrate inconsistent or partial mastery of knowledge and skills related to essentialized standards that do not meet proficiency"},
+        {id: 3, checked: false, questionText: "Students demonstrate adept knowledge and skills related to essentialized standards that meet proficiency."},
+        {id: 4, checked: false, questionText: "Students demonstrate exceptional knowledge and skills related to essentialized standards that exceed the requirements for proficiency"},
+        ], [
+        {id: 5, checked: false, questionText: "Performance indicates that the student has limited to no understanding of academic concepts aligned to essentialized standards"},
+        {id: 6, checked: false, questionText: "Performance indicates an inconsistent or partial understanding of academic concepts aligned to essentialized standards"},
+        {id: 7, checked: false, questionText: "Performance indicates consistent understanding of academic concepts aligned to essentialized standards."},
+        {id: 8, checked: false, questionText: "Performance indicates superior understanding of academic concepts aligned to essentialized standards."}
+        ]
       ]
     }
   }
@@ -42,8 +49,8 @@ class SurveyPage extends Component {
 
     return (
       <div>
-        {this.state.questions.map((x, i) =>
-              <Question className={cx(s.inactive)} questionText={x.QuestionText}/>
+        {this.state.questionRows.map((x, i) =>
+              <QuestionRow questions={x} />
             )
         }
       </div>
