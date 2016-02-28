@@ -15,7 +15,7 @@ import Question from '../Question'
 import {Table, Column, Cell} from 'fixed-data-table'
 import update from 'react-addons-update'
 
-class SurveyPage extends Component {
+class QuestionRow extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -24,21 +24,22 @@ class SurveyPage extends Component {
   }
   static propTypes = {
     className: PropTypes.string,
+    questions: PropTypes.array
   }
 
   onSelected(question, e){
+    console.log('row detected select')
     let changedQuestions = this.state.questions.map((x,i) =>
       update(x, {checked: {$set: x.id==question.id}})
     )
-
     this.setState(update(this.state, {questions: {$set:changedQuestions}}))
   }
 
   render() {
     return (
-      <div className={cx(s.QuestionRow)}>
+      <div className={cx(this.props.className, s.questionRow)}>
         {this.state.questions.map((x, i) =>
-              <Question question={x} onSelected={this.onSelected.bind(this)} />
+              <Question key={i} question={x} onSelected={this.onSelected.bind(this)} />
             )
         }
       </div>
@@ -46,4 +47,4 @@ class SurveyPage extends Component {
   }
 }
 
-export default withStyles(SurveyPage, s)
+export default withStyles(QuestionRow, s)

@@ -25,17 +25,27 @@ class SurveyPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      headerQuestions: [
+        {id: 0, checked: false, questionText: "\u00a0"},
+        {id: 1, checked: false, questionText: "Level 1"},
+        {id: 2, checked: false, questionText: "Level 2"},
+        {id: 3, checked: false, questionText: "Level 3"},
+        {id: 4, checked: false, questionText: "Level 4"}
+        ],
       questionRows: [[
+        {id: 0, checked: false, questionText: "\u00a0"},
         {id: 1, checked: false, questionText: "Students demonstrate limited to no mastery of knowledge and skills related to essentialized standards that do not meet proficiency."},
         {id: 2, checked: false, questionText: "Students demonstrate inconsistent or partial mastery of knowledge and skills related to essentialized standards that do not meet proficiency"},
         {id: 3, checked: false, questionText: "Students demonstrate adept knowledge and skills related to essentialized standards that meet proficiency."},
         {id: 4, checked: false, questionText: "Students demonstrate exceptional knowledge and skills related to essentialized standards that exceed the requirements for proficiency"},
         ],[
+        {id: 0, checked: false, questionText: "\u00a0"},
         {id: 1, checked: false, questionText: "Students demonstrate limited to no mastery of knowledge and skills related to essentialized standards that do not meet proficiency."},
         {id: 2, checked: false, questionText: "Students demonstrate inconsistent or partial mastery of knowledge and skills related to essentialized standards that do not meet proficiency"},
         {id: 3, checked: false, questionText: "Students demonstrate adept knowledge and skills related to essentialized standards that meet proficiency."},
         {id: 4, checked: false, questionText: "Students demonstrate exceptional knowledge and skills related to essentialized standards that exceed the requirements for proficiency"},
         ], [
+        {id: 0, checked: false, questionText: "\u00a0"},
         {id: 5, checked: false, questionText: "Performance indicates that the student has limited to no understanding of academic concepts aligned to essentialized standards"},
         {id: 6, checked: false, questionText: "Performance indicates an inconsistent or partial understanding of academic concepts aligned to essentialized standards"},
         {id: 7, checked: false, questionText: "Performance indicates consistent understanding of academic concepts aligned to essentialized standards."},
@@ -48,14 +58,16 @@ class SurveyPage extends Component {
   render() {
 
     return (
-      <div>
+      <div className={cx(s.questionList)}>
+        <QuestionRow className={cx(s.questionHeaders)} questions={this.state.headerQuestions} />
         {this.state.questionRows.map((x, i) =>
-              <QuestionRow questions={x} />
+              <QuestionRow key={i} questions={x} />
             )
         }
       </div>
     )
   }
+
 }
 
 export default withStyles(SurveyPage, s)
