@@ -1,6 +1,6 @@
 {
-  "name": "Survey",
+  "name": "survey",
   "version": "0.0.1",
-  "main": "Survey.js",
+  "main": "survey.js",
   "private": true
 }
