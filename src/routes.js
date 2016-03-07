@@ -10,6 +10,7 @@
 import React from 'react';
 import Router from 'react-routing/src/Router';
 import fetch from './core/fetch';
+import survey from './core/survey';
 import App from './components/App';
 import ContentPage from './components/ContentPage';
 import ContactPage from './components/ContactPage';
@@ -18,11 +19,21 @@ import RegisterPage from './components/RegisterPage';
 import NotFoundPage from './components/NotFoundPage';
 import ErrorPage from './components/ErrorPage';
 import SurveyPage from './components/SurveyPage';
+import RegisterStudent from './components/SurveyPage/RegisterStudent';
+import {Provider} from 'react-redux';
+import makeStore from './stores';
 
+//const store = createStore((state,action) =>{return state;})
 const router = new Router(on => {
   on('*', async (state, next) => {
+    const store = makeStore();
+    const wireupsurvey = survey
     const component = await next();
-    return component && <App context={state.context}>{component}</App>;
+    return component &&
+      <Provider store={store}>
+        <App context={state.context}>{component}</App>
+      </Provider>;
+
   });
 
   on('/contact', async () => <ContactPage />);
@@ -32,6 +43,8 @@ const router = new Router(on => {
   on('/register', async () => <RegisterPage />);
 
   on('/survey', async () => <SurveyPage />);
+
+  on('/student/start', async () => <RegisterStudent />);
 
   on('*', async (state) => {
     const response = await fetch(`/api/content?path=${state.path}`);

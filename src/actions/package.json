@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "name": "SurveyActions",
+  "main": "./SurveyActions.js",
+  "browser": "./SurveyActions.js"
+}

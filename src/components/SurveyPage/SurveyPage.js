@@ -15,53 +15,23 @@ import Link from '../Link'
 import QuestionRow from './QuestionRow'
 import {Table, Column, Cell} from 'fixed-data-table'
 import update from 'react-addons-update'
+import {connect} from 'react-redux'
 
 class SurveyPage extends Component {
 
   static propTypes = {
     className: PropTypes.string,
-  }
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      headerQuestions: [
-        {id: 0, checked: false, questionText: "\u00a0"},
-        {id: 1, checked: false, questionText: "Level 1"},
-        {id: 2, checked: false, questionText: "Level 2"},
-        {id: 3, checked: false, questionText: "Level 3"},
-        {id: 4, checked: false, questionText: "Level 4"}
-        ],
-      questionRows: [[
-        {id: 0, checked: false, questionText: "\u00a0"},
-        {id: 1, checked: false, questionText: "Students demonstrate limited to no mastery of knowledge and skills related to essentialized standards that do not meet proficiency."},
-        {id: 2, checked: false, questionText: "Students demonstrate inconsistent or partial mastery of knowledge and skills related to essentialized standards that do not meet proficiency"},
-        {id: 3, checked: false, questionText: "Students demonstrate adept knowledge and skills related to essentialized standards that meet proficiency."},
-        {id: 4, checked: false, questionText: "Students demonstrate exceptional knowledge and skills related to essentialized standards that exceed the requirements for proficiency"},
-        ],[
-        {id: 0, checked: false, questionText: "\u00a0"},
-        {id: 1, checked: false, questionText: "Students demonstrate limited to no mastery of knowledge and skills related to essentialized standards that do not meet proficiency."},
-        {id: 2, checked: false, questionText: "Students demonstrate inconsistent or partial mastery of knowledge and skills related to essentialized standards that do not meet proficiency"},
-        {id: 3, checked: false, questionText: "Students demonstrate adept knowledge and skills related to essentialized standards that meet proficiency."},
-        {id: 4, checked: false, questionText: "Students demonstrate exceptional knowledge and skills related to essentialized standards that exceed the requirements for proficiency"},
-        ], [
-        {id: 0, checked: false, questionText: "\u00a0"},
-        {id: 5, checked: false, questionText: "Performance indicates that the student has limited to no understanding of academic concepts aligned to essentialized standards"},
-        {id: 6, checked: false, questionText: "Performance indicates an inconsistent or partial understanding of academic concepts aligned to essentialized standards"},
-        {id: 7, checked: false, questionText: "Performance indicates consistent understanding of academic concepts aligned to essentialized standards."},
-        {id: 8, checked: false, questionText: "Performance indicates superior understanding of academic concepts aligned to essentialized standards."}
-        ]
-      ]
-    }
+    student: PropTypes.object
   }
 
   render() {
 
     return (
       <div className={cx(s.questionList)}>
-        <QuestionRow className={cx(s.questionHeaders)} questions={this.state.headerQuestions} />
-        {this.state.questionRows.map((x, i) =>
-              <QuestionRow key={i} questions={x} />
+        <div>{this.props.student.name}</div>
+        <QuestionRow className={cx(s.questionHeaders)} questions={this.props.student.headerQuestions} />
+        {this.props.student.questionRows.map((x, i) =>
+              <QuestionRow key={i} rowIndex={i} questions={x} />
             )
         }
       </div>
@@ -69,5 +39,16 @@ class SurveyPage extends Component {
   }
 
 }
+const mapStateToProps = (state)=>{
+  return {
+    student: state.students[0]
+  }
+}
+const mapDispatchToProps = (dispatch)=>{
+  return {
+
+  }
+}
+SurveyPage = connect(mapStateToProps,mapDispatchToProps)(SurveyPage);
 
 export default withStyles(SurveyPage, s)

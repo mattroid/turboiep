@@ -1,0 +1,13 @@
+.studentRegisterForm {
+  padding: 8px 24px;
+}
+.studentRegisterForm > input,
+.studentRegisterForm > textarea {
+  display: block;
+  width: 240px;
+  padding: 4px 8px;
+  margin-bottom: 8px;
+  border-radius: 3px;
+  border: 1px solid #888;
+  font-size: 14px;
+}

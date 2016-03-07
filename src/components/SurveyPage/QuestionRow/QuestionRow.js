@@ -14,37 +14,45 @@ import s from './QuestionRow.scss'
 import Question from '../Question'
 import {Table, Column, Cell} from 'fixed-data-table'
 import update from 'react-addons-update'
+import {connect} from 'react-redux'
 
 class QuestionRow extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      questions: this.props.questions
-    }
-  }
   static propTypes = {
     className: PropTypes.string,
+    onSelected: PropTypes.func,
+    rowIndex: PropTypes.number,
     questions: PropTypes.array
   }
 
-  onSelected(question, e){
-    console.log('row detected select')
-    let changedQuestions = this.state.questions.map((x,i) =>
-      update(x, {checked: {$set: x.id==question.id}})
-    )
-    this.setState(update(this.state, {questions: {$set:changedQuestions}}))
-  }
+  //onSelected(question, e){
+  //  let changedQuestions = this.state.questions.map((x,i) =>
+  //    update(x, {checked: {$set: x.id==question.id}})
+  //  )
+  //  this.setState(update(this.state, {questions: {$set:changedQuestions}}))
+  //}
 
   render() {
     return (
       <div className={cx(this.props.className, s.questionRow)}>
-        {this.state.questions.map((x, i) =>
-              <Question key={i} question={x} onSelected={this.onSelected.bind(this)} />
+        {this.props.questions.map((x, i) =>
+              <Question key={i} question={x} onSelected={e=>{this.props.onSelection(this.props.rowIndex, x.id)}} />
             )
         }
       </div>
     )
   }
 }
+const mapStateToProps = (state)=>{
+  return {
+  }
+}
+const mapDispatchToProps = (dispatch)=>{
+  return {
+    onSelection: (row_index, id) =>{
+      dispatch({type: 'SELECT_ANSWER',row_index, id})
+    }
+  }
+}
+QuestionRow = connect(mapStateToProps,mapDispatchToProps)(QuestionRow);
 
 export default withStyles(QuestionRow, s)
