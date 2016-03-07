@@ -6,7 +6,7 @@ import TestUtils from 'react-addons-test-utils';
 
 const SurveyPage = require('../SurveyPage');
 
-describe('profile questions', () => {
+describe('profile questionItems', () => {
 
   it('should turn green when clicked', () => {
 

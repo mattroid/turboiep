@@ -10,30 +10,32 @@
 import React, { Component, PropTypes } from 'react'
 import cx from 'classnames'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import s from './Question.scss'
+import s from './QuestionItem.scss'
 import {Table, Column, Cell} from 'fixed-data-table'
 
-class Question extends Component {
+class QuestionItem extends Component {
 
   static propTypes = {
-    question: PropTypes.object.isRequired,
+    questionItem: PropTypes.object.isRequired,
     className: PropTypes.string,
+    itemText: PropTypes.string,
+    isSelected: PropTypes.bool,
     onSelected: PropTypes.func
   }
 
   handleClick(event){
-    this.props.onSelected(this.props.question);
+    this.props.onSelected(this.props.questionItem);
   }
 
   render() {
     return (
         <div onClick={this.handleClick.bind(this)}
-             className={cx(s.question, {[s.active]:this.props.question.checked})}>
-          {this.props.question.questionText}
+             className={cx(s.questionItem, {[s.active]:this.props.isSelected})}>
+          {this.props.itemText}
         </div>
     )
   }
 
 }
 
-export default withStyles(Question, s)
+export default withStyles(QuestionItem, s)
