@@ -119,10 +119,10 @@ const INITIAL_STATE = {
       ]
 }
 const setAnswer = (state, action)=> {
+  return x
   let newRowQuestions = _.map(state.students[0].questions[action.row_index].questionItems,(o)=>{
     let x = _.clone(o)
-    x.checked = o.id==action.id ? true : false
-    return x
+    x.checked = o.id==action.id ? !o.checked: false
   })
   let newstate = update(state,{
       students:
