@@ -13,10 +13,12 @@
   border: 1px solid black;
   display: inline-flex;
   font-size: small;
-  line-height: 12px;
+  line-height: 16px;
+  padding: 10px;
+  background-color: white;
 }
 .active {
-  background-color: #00A000;
+  background-color: #7d7;
 }
 .root {
 

@@ -57,7 +57,7 @@ class App extends Component {
       <div>
         <Header />
         {this.props.children}
-        <Feedback />
+        {/* <Feedback /> */}
         <Footer />
       </div>
     ) : this.props.children;

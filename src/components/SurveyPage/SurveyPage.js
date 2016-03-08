@@ -30,6 +30,7 @@ class SurveyPage extends Component {
     return (
       <div className={cx(s.questionList)}>
         <div>{this.props.student.name}</div>
+        <h3>{'Functional Math'}</h3>
         <QuestionItems className={cx(s.questionHeaders)} question={this.props.student.headerItems} />
         {this.props.student.questions.map((x, i) => {
                     switch(x.questionType){
