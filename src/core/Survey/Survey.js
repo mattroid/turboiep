@@ -3,21 +3,18 @@
  */
 import update from 'react-addons-update'
 import _ from 'underscore'
-
-const INITIAL_STATE = {
-  students:
+const getDefaultHeaderItems = () => {
+  return {
+    questionText: "\u00a0",
+      questionItems:
     [
-        {
-          name:"Evorie O'Connor",
-          headerItems: {
-            questionText: "\u00a0",
-            questionItems:[
-                {id: 1, checked: false, questionText: "Emerging"},
-                {id: 2, checked: false, questionText: "Begining"},
-                {id: 3, checked: false, questionText: "Traditional"},
-            ]
-          },
-          questions: [
+      {id: 1, checked: false, questionText: "Emerging"},
+      {id: 2, checked: false, questionText: "Begining"},
+      {id: 3, checked: false, questionText: "Traditional"},
+    ]
+  }
+}
+const getDefaultMathQuestions = () => [
             {
               questionText: "Rote Counting",
               questionType: "items",
@@ -115,14 +112,34 @@ const INITIAL_STATE = {
               {id: 3, checked: false, questionText: "* Uses more complex measurements (feet, inches, quart, gallon, pounds)\n* Selects appropriate tool to measure length, weight, volume and uses measuring tools correctly and accurately"},
             ]},
           ]
+
+const INITIAL_STATE = {
+  students:
+    [
+        {
+          name:"Evorie O'Connor",
+          headerItems: getDefaultHeaderItems(),
+          questions: getDefaultMathQuestions()
         }
-      ]
+      ],
+  selectedStudentIndex: 0
+}
+
+
+const addStudent = (state, action)=>{
+  return update(state,{students: {$push: {
+        name: action.studentName,
+        headerItems: getDefaultHeaderItems(),
+        questions: getDefaultMathQuestions()
+      }},
+      selectedStudentIndex: {$set: state.students.length-1}
+  })
 }
 const setAnswer = (state, action)=> {
-  return x
   let newRowQuestions = _.map(state.students[0].questions[action.row_index].questionItems,(o)=>{
     let x = _.clone(o)
     x.checked = o.id==action.id ? !o.checked: false
+    return x
   })
   let newstate = update(state,{
       students:
@@ -135,5 +152,5 @@ const setAnswer = (state, action)=> {
   })
   return newstate
 }
-export {setAnswer, INITIAL_STATE }
+export {addStudent, setAnswer, INITIAL_STATE }
 

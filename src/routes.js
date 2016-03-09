@@ -26,8 +26,8 @@ import makeStore from './stores';
 //const store = createStore((state,action) =>{return state;})
 const router = new Router(on => {
   on('*', async (state, next) => {
-    const store = makeStore();
     const wireupsurvey = survey
+    const store = makeStore();
     const component = await next();
     return component &&
       <Provider store={store}>
@@ -43,6 +43,10 @@ const router = new Router(on => {
   on('/register', async () => <RegisterPage />);
 
   on('/survey', async () => <SurveyPage />);
+  //on('/survey/:id', async (state) => {
+  //  const id = state.params.id;
+  //  return id && <SurveyPage />;
+  //});
 
   on('/student/start', async () => <RegisterStudent />);
 
