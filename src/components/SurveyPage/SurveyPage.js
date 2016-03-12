@@ -49,6 +49,7 @@ class SurveyPage extends Component {
 }
 const mapStateToProps = (state)=>{
   return {
+    selectedStudentIndex: state.selectedStudentIndex,
     student: state.students[state.selectedStudentIndex]
   }
 }

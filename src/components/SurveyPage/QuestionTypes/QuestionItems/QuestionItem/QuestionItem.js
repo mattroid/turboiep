@@ -16,7 +16,6 @@ import {Table, Column, Cell} from 'fixed-data-table'
 class QuestionItem extends Component {
 
   static propTypes = {
-    questionItem: PropTypes.object.isRequired,
     className: PropTypes.string,
     itemText: PropTypes.string,
     isSelected: PropTypes.bool,
@@ -24,7 +23,7 @@ class QuestionItem extends Component {
   }
 
   handleClick(event){
-    this.props.onSelected(this.props.questionItem);
+    this.props.onSelected();
   }
 
   render() {

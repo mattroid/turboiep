@@ -19,6 +19,7 @@ import RegisterPage from './components/RegisterPage';
 import NotFoundPage from './components/NotFoundPage';
 import ErrorPage from './components/ErrorPage';
 import SurveyPage from './components/SurveyPage';
+import StudentProfiles from './components/StudentProfiles';
 import RegisterStudent from './components/SurveyPage/RegisterStudent';
 import {Provider} from 'react-redux';
 import makeStore from './stores';
@@ -37,6 +38,8 @@ const router = new Router(on => {
   });
 
   on('/contact', async () => <ContactPage />);
+
+  on('/profiles', async () => <StudentProfiles />);
 
   on('/login', async () => <LoginPage />);
 

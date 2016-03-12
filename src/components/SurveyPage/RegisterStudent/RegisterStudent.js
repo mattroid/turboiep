@@ -10,6 +10,7 @@ class RegisterStudent extends Component {
 
   static propTypes = {
     className: PropTypes.string,
+    onAddStudent: PropTypes.func
   }
 
   handleNameChange(e){
@@ -21,8 +22,10 @@ class RegisterStudent extends Component {
       <div>
         <form className={cx(s.studentRegisterForm)}>
           <input placeholder="Student Name" type="text" ref={(s)=>this.StudentName = s} />
-          <input type="submit" value="Add Student" />
-          <Link to="/survey" onClick={(e)=> onAddStudent(this.StudentName.value)}>Add Student</Link>
+          <Link to="/survey" onClick={(e)=> {
+                this.props.onAddStudent(this.StudentName.value)
+            }
+          }>Add Student</Link>
         </form>
       </div>
     )
