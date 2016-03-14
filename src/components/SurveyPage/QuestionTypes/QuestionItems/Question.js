@@ -19,7 +19,7 @@ import {connect} from 'react-redux'
 class Question extends Component {
   static propTypes = {
     className: PropTypes.string,
-    onSelected: PropTypes.func,
+    onSelection: PropTypes.func,
     rowIndex: PropTypes.number,
     question: PropTypes.object
   }

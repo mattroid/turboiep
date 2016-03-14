@@ -26,7 +26,6 @@ class SurveyPage extends Component {
   }
 
   render() {
-    console.log(JSON.stringify(this.props.student.questions.length))
     return (
       <div className={cx(s.questionList)}>
         <div>{this.props.student.name}</div>

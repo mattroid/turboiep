@@ -22,13 +22,14 @@ import SurveyPage from './components/SurveyPage';
 import StudentProfiles from './components/StudentProfiles';
 import RegisterStudent from './components/SurveyPage/RegisterStudent';
 import {Provider} from 'react-redux';
-import makeStore from './stores';
+import configureStore from './stores';
 
 //const store = createStore((state,action) =>{return state;})
 const router = new Router(on => {
   on('*', async (state, next) => {
     const wireupsurvey = survey
-    const store = makeStore();
+    const store = configureStore()
+
     const component = await next();
     return component &&
       <Provider store={store}>

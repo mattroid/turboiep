@@ -6,30 +6,32 @@ import cx from 'classnames'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './StudentProfiles.scss'
 import {connect} from 'react-redux'
+import Link from '../Link'
 
 class StudentProfiles extends Component{
   static propTypes = {
-    profiles: PropTypes.array
+    profiles: PropTypes.array,
+    onProfileSelected: PropTypes.func
   }
   render () {
 
     return (
       <div>
         {this.props.profiles.map((x,i)=>{
-          return <div>{x.name}</div>
+          return <div key={i}><Link to="/survey" onClick={(e)=> this.props.onProfileSelected(i)} key={i}>{x.name}</Link></div>
         })}
       </div>
     )
   }
 }
 const mapStateToProps = (state)=>{
-  console.log(state.students.length)
   return {
     profiles: state.students
   }
 }
 const mapDispatchToProps = (dispatch)=>{
   return {
+    onProfileSelected: (studentIndex)=> dispatch({type:'SELECT_STUDENT', studentIndex: studentIndex})
   }
 }
 StudentProfiles= connect(mapStateToProps,mapDispatchToProps)(StudentProfiles);

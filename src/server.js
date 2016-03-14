@@ -16,6 +16,7 @@ import Router from './routes';
 import Html from './components/Html';
 import assets from './assets';
 import { port } from './config';
+import bodyParser from 'body-parser'
 
 const server = global.server = express();
 
@@ -23,12 +24,13 @@ const server = global.server = express();
 // Register Node.js middleware
 // -----------------------------------------------------------------------------
 server.use(express.static(path.join(__dirname, 'public')));
+server.use(bodyParser.json())
 
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
 server.use('/api/content', require('./api/content').default);
-
+server.use('/api/students', require('./api/students').default);
 //
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
