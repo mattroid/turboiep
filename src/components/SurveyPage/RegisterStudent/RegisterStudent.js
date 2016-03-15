@@ -42,6 +42,14 @@ const mapDispatchToProps = (dispatch)=>{
     }
   }
 }
+cons addStudent = (studentName) => {
+  return (dispatch) =>{
+    //update store to indicate adding student
+    //fetch to add student
+    //then dispatch student added event
+    //
+  }
+}
 RegisterStudent = connect(mapStateToProps,mapDispatchToProps)(RegisterStudent);
 
 export default withStyles(RegisterStudent, s)

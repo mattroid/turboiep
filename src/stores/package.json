@@ -1,6 +1,6 @@
 {
-  "name": "application-name",
+  "name": "store",
   "version": "0.0.1",
-  "main": "SurveyStore.js",
+  "main": "ConfigureStore.js",
   "private": true
 }

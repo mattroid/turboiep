@@ -124,26 +124,45 @@ const INITIAL_STATE = {
       ],
   selectedStudentIndex: 0
 }
-
-
+const getStudents = () => {
+  const students = fetch('/api/students')
+  return students
+}
+const selectStudent = (state, action) =>{
+  return update(state,{selectedStudentIndex: {$set: action.studentIndex}})
+}
 const addStudent = (state, action)=>{
-  return update(state,{students: {$push: {
+  let newState = update(state,{students: {$push: [{
         name: action.studentName,
         headerItems: getDefaultHeaderItems(),
         questions: getDefaultMathQuestions()
-      }},
-      selectedStudentIndex: {$set: state.students.length-1}
+      }]},
+      selectedStudentIndex: {$set: state.students.length}
   })
+
+  const response = fetch(`/api/students/add`, {
+    method: 'post',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(
+      newState.students[newState.students.length - 1]
+    )
+  });
+
+  return newState
+
 }
 const setAnswer = (state, action)=> {
-  let newRowQuestions = _.map(state.students[0].questions[action.row_index].questionItems,(o)=>{
+  let newRowQuestions = _.map(state.students[state.selectedStudentIndex].questions[action.row_index].questionItems,(o)=>{
     let x = _.clone(o)
     x.checked = o.id==action.id ? !o.checked: false
     return x
   })
   let newstate = update(state,{
       students:
-        {0:
+        {[state.selectedStudentIndex]:
           {questions:
             {[action.row_index]: {questionItems: {$set: newRowQuestions}}
             }
@@ -152,5 +171,11 @@ const setAnswer = (state, action)=> {
   })
   return newstate
 }
-export {addStudent, setAnswer, INITIAL_STATE }
+export {
+  getStudents,
+  addStudent,
+  setAnswer,
+  selectStudent,
+  INITIAL_STATE
+}
 

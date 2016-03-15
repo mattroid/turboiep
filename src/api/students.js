@@ -36,8 +36,7 @@ const students = [];
 router.post('/add', async (req, res, next) => {
   console.log('received student');
   try {
-    console.log(req.body)
-    let newStudent = JSON.parse(req.body);
+    let newStudent = req.body;
     students.push(newStudent);
 
     res.status(200).json(newStudent);
