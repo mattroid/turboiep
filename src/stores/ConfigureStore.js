@@ -3,14 +3,14 @@
  */
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
-import reducer from '../actions/SurveyActions';
+import reducer from './modules/reducer';
 
 export default function configureStore() {
   const store = createStore(reducer, applyMiddleware(thunk));
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../actions/SurveyActions', () => {
-      const nextRootReducer = require('../actions/SurveyActions');
+    module.hot.accept('./modules/reducer', () => {
+      const nextRootReducer = require('./modules/reducer');
       store.replaceReducer(nextRootReducer);
     });
   }

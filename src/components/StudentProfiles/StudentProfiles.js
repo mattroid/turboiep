@@ -7,6 +7,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './StudentProfiles.scss'
 import {connect} from 'react-redux'
 import Link from '../Link'
+import {selectStudent} from '../../actions/SurveyActions'
 
 class StudentProfiles extends Component{
   static propTypes = {
@@ -14,7 +15,6 @@ class StudentProfiles extends Component{
     onProfileSelected: PropTypes.func
   }
   render () {
-
     return (
       <div>
         {this.props.profiles.map((x,i)=>{
@@ -26,12 +26,12 @@ class StudentProfiles extends Component{
 }
 const mapStateToProps = (state)=>{
   return {
-    profiles: state.students
+    profiles: state.surveyReducer.students
   }
 }
 const mapDispatchToProps = (dispatch)=>{
   return {
-    onProfileSelected: (studentIndex)=> dispatch({type:'SELECT_STUDENT', studentIndex: studentIndex})
+    onProfileSelected: (index) => {dispatch(selectStudent(index))}
   }
 }
 StudentProfiles= connect(mapStateToProps,mapDispatchToProps)(StudentProfiles);

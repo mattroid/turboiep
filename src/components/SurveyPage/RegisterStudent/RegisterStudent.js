@@ -5,6 +5,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './RegisterStudent.scss'
 import update from 'react-addons-update'
 import Link from '../../Link'
+import {addStudent} from '../../../actions/SurveyActions'
 
 class RegisterStudent extends Component {
 
@@ -24,6 +25,7 @@ class RegisterStudent extends Component {
           <input placeholder="Student Name" type="text" ref={(s)=>this.StudentName = s} />
           <Link to="/survey" onClick={(e)=> {
                 this.props.onAddStudent(this.StudentName.value)
+                return false
             }
           }>Add Student</Link>
         </form>
@@ -37,19 +39,12 @@ const mapStateToProps = (state)=>{
 }
 const mapDispatchToProps = (dispatch)=>{
   return {
-    onAddStudent: (studentName)=>{
-      dispatch({type:"ADD_STUDENT", studentName})
+    onAddStudent: (studentName) => {
+        dispatch(addStudent(studentName))
     }
   }
 }
-cons addStudent = (studentName) => {
-  return (dispatch) =>{
-    //update store to indicate adding student
-    //fetch to add student
-    //then dispatch student added event
-    //
-  }
-}
+
 RegisterStudent = connect(mapStateToProps,mapDispatchToProps)(RegisterStudent);
 
 export default withStyles(RegisterStudent, s)

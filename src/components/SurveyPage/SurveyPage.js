@@ -26,12 +26,14 @@ class SurveyPage extends Component {
   }
 
   render() {
+    console.log(JSON.stringify(this.props.student))
+    this.student = this.props.student || {name:'', headerItems:[],questions:[]}
     return (
       <div className={cx(s.questionList)}>
-        <div>{this.props.student.name}</div>
+        <div>{this.student.name }</div>
         <h3>{'Functional Math'}</h3>
-        <QuestionItems className={cx(s.questionHeaders)} question={this.props.student.headerItems} />
-        {this.props.student.questions.map((x, i) => {
+        <QuestionItems className={cx(s.questionHeaders)} question={this.student.headerItems} />
+        {this.student.questions.map((x, i) => {
                     switch(x.questionType){
                       case "items":
                         return <QuestionItems key={i} rowIndex={i} question={x} />
@@ -48,8 +50,8 @@ class SurveyPage extends Component {
 }
 const mapStateToProps = (state)=>{
   return {
-    selectedStudentIndex: state.selectedStudentIndex,
-    student: state.students[state.selectedStudentIndex]
+    selectedStudentIndex: state.surveyReducer.selectedStudentIndex,
+    student: state.surveyReducer.students[state.surveyReducer.selectedStudentIndex]
   }
 }
 const mapDispatchToProps = (dispatch)=>{
