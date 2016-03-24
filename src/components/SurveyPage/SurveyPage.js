@@ -22,12 +22,13 @@ class SurveyPage extends Component {
 
   static propTypes = {
     className: PropTypes.string,
-    student: PropTypes.object
+    student: PropTypes.object,
+    selectedStudentIndex: PropTypes.number
   }
 
   render() {
-    console.log(JSON.stringify(this.props.student))
     this.student = this.props.student || {name:'', headerItems:[],questions:[]}
+    this.selectedIndex = this.props.selectedStudentIndex || 0
     return (
       <div className={cx(s.questionList)}>
         <div>{this.student.name }</div>
@@ -36,9 +37,9 @@ class SurveyPage extends Component {
         {this.student.questions.map((x, i) => {
                     switch(x.questionType){
                       case "items":
-                        return <QuestionItems key={i} rowIndex={i} question={x} />
+                        return <QuestionItems key={i} studentId={this.student._id} studentIndex={this.selectedIndex} rowIndex={i} question={x} />
                       case "1to4":
-                        return <Question1to4 key={i} rowIndex={i} question={x} />
+                        return <Question1to4 key={i} studentIndex={this.selectedIndex} rowIndex={i} question={x} />
                     }
                 }
             )

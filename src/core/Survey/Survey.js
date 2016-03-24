@@ -5,10 +5,7 @@ import update from 'react-addons-update'
 import _ from 'underscore'
 
 const INITIAL_STATE = {
-  students:
-    [
-
-      ],
+  students:[],
   selectedStudentIndex: 0
 }
 const getStudents = () => {
@@ -19,7 +16,6 @@ const selectStudent = (state, action) =>{
   return update(state,{selectedStudentIndex: {$set: action.studentIndex}})
 }
 const addStudent = (state, action)=>{
-  console.log(JSON.stringify(action))
   let newState = update(state,{students: {$push: [action.student]},
       selectedStudentIndex: {$set: state.students.length}
   })

@@ -9,28 +9,31 @@
 
 import 'babel-polyfill';
 import path from 'path';
-import express from 'express';
+import feathers from 'feathers';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import Router from './routes';
 import Html from './components/Html';
 import assets from './assets';
 import { port } from './config';
-import bodyParser from 'body-parser'
+import bodyParser from 'body-parser';
 
-const server = global.server = express();
+
+const server = global.server = feathers();
 
 //
 // Register Node.js middleware
 // -----------------------------------------------------------------------------
-server.use(express.static(path.join(__dirname, 'public')));
-server.use(bodyParser.json())
+server.use(feathers.static(path.join(__dirname, 'public')));
 server.use(bodyParser.urlencoded({ extended: false }))
+
+
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
 server.use('/api/content', require('./api/content').default);
-server.use('/api/students', require('./api/students').default);
+server.use('/api', require('./api/students').default);
+
 //
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------

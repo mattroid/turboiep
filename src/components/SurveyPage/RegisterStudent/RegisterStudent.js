@@ -25,7 +25,6 @@ class RegisterStudent extends Component {
           <input placeholder="Student Name" type="text" ref={(s)=>this.StudentName = s} />
           <Link to="/survey" onClick={(e)=> {
                 this.props.onAddStudent(this.StudentName.value)
-                return false
             }
           }>Add Student</Link>
         </form>

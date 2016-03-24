@@ -15,12 +15,15 @@ import QuestionItem from './QuestionItem'
 import {Table, Column, Cell} from 'fixed-data-table'
 import update from 'react-addons-update'
 import {connect} from 'react-redux'
+import {setAnswer} from '../../../../actions/SurveyActions'
 
 class Question extends Component {
   static propTypes = {
     className: PropTypes.string,
     onSelection: PropTypes.func,
     rowIndex: PropTypes.number,
+    studentId: PropTypes.string,
+    studentIndex: PropTypes.number,
     question: PropTypes.object
   }
 
@@ -30,7 +33,7 @@ class Question extends Component {
       <div className={cx(this.props.className, s.questionRow)}>
         <QuestionItem isSelected={false} itemText={this.props.question.questionText}  />
         {qItems.map((x, i) =>
-              <QuestionItem key={i} isSelected={x.checked} itemText={x.questionText} onSelected={e=>{this.props.onSelection(this.props.rowIndex, x.id)}} />
+              <QuestionItem key={i} isSelected={x.checked} itemText={x.questionText} onSelected={e=>{this.props.onSelection(this.props.studentIndex,this.props.rowIndex, x.id)}} />
             )
         }
       </div>
@@ -43,8 +46,8 @@ const mapStateToProps = (state)=>{
 }
 const mapDispatchToProps = (dispatch)=>{
   return {
-    onSelection: (row_index, id) =>{
-      dispatch({type: 'SELECT_ANSWER',row_index, id})
+    onSelection: (studentId, studentIndex, row_index, id) =>{
+      dispatch(setAnswer(studentId, studentIndex,row_index,id))
     }
   }
 }

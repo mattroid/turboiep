@@ -27,8 +27,8 @@ import configureStore from './stores';
 //const store = createStore((state,action) =>{return state;})
 const router = new Router(on => {
   on('*', async (state, next) => {
-    const wireupsurvey = survey
-    const store = configureStore()
+
+    const store = await configureStore()
 
     const component = await next();
     return component &&
