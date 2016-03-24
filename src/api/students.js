@@ -7,11 +7,11 @@ import socketio from 'feathers-socketio'
 import rest from 'feathers-rest'
 
 const answerdb = new NeDb({
-  filename: '../db-data/answers',
+  filename: './db-data/answers',
   autoload: true
 });
 const studentdb = new NeDb({
-  filename: '../db-data/students',
+  filename: './db-data/students',
   autoload: true
 });
 
@@ -23,12 +23,16 @@ app.configure(socketio())
 app.configure(hooks())
 
 app.use('/students', service({Model:studentdb}))
+app.use('/answers', service({Model:answerdb}))
 
 export default app
 
 const studentService = app.service('/students')
-
+const answerService = app.service('/answers')
 studentService.before({
+  find(hook){
+    //find all answers and map them to the questions
+  },
   create(hook){
     if(hook.data.questions || hook.data.questions.length==0){
       hook.data.headerItems = getDefaultHeaderItems();
@@ -36,6 +40,29 @@ studentService.before({
     }
   }
 });
+studentService.after({
+  find(hook, next){
+    //get answers for this student
+    const studentId = hook.result[0]._id
+    answerService.find({query: {studentId:studentId}}).then((answers)=>{
+      //map answers to questions
+      hook.result[0].questions.forEach((question)=>{
+        answers.forEach((answer)=>{
+          if(answer.questionId==question.questionId)
+          question.questionItems.forEach((qitem)=>{
+            if(qitem.id == answer.answer){
+              qitem.checked=true
+            } else {
+              qitem.checked=false
+            }
+          })
+        })
+      })
+      next()
+    })
+
+  }
+})
 const getDefaultHeaderItems = () => {
   return {
     questionText: "\u00a0",
@@ -49,6 +76,7 @@ const getDefaultHeaderItems = () => {
 }
 const getDefaultMathQuestions = () => [
   {
+    questionId: "1",
     questionText: "Rote Counting",
     questionType: "items",
     questionItems: [
@@ -57,6 +85,7 @@ const getDefaultMathQuestions = () => [
       {id: 3, checked: false, questionText: "Counts to 10 e.g. during a game"},
     ]},
   {
+    questionId: "2",
     questionText: "Counts Objects (1:1 Correspondence)",
     questionType: "items",
     questionItems: [
@@ -65,6 +94,7 @@ const getDefaultMathQuestions = () => [
       {id: 3, checked: false, questionText: "Correctly counts objects 1-10 e.g. counts out ten playing cards"},
     ]},
   {
+    questionId: "3",
     questionText: "Points to Numbers",
     questionType: "items",
     questionItems: [
@@ -73,6 +103,7 @@ const getDefaultMathQuestions = () => [
       {id: 3, checked: false, questionText: "When needed points to #s 1-20 correctly e.g. points to a specific floor on an elevator when requested to do so"},
     ]},
   {
+    questionId: "4",
     questionText: "Names Numbers",
     questionType: "items",
     questionItems: [
@@ -81,6 +112,7 @@ const getDefaultMathQuestions = () => [
       {id: 3, checked: false, questionText: "In response to a picture of the number, indicates correct # name for #s 1-100 e.g. identifies page number from book"},
     ]},
   {
+    questionId: "5",
     questionText: "Sequencing Numbers (FLS only)",
     questionType: "items",
     questionItems: [
@@ -89,6 +121,7 @@ const getDefaultMathQuestions = () => [
       {id: 3, checked: false, questionText: "* Ues ordinal numbers (first, second, third, etc.)"},
     ]},
   {
+    questionId: "6",
     questionText: "Addition",
     questionType: "items",
     questionItems: [
@@ -97,6 +130,7 @@ const getDefaultMathQuestions = () => [
       {id: 3, checked: false, questionText: "Adds two double digit #s e.g. student has eleven blocks and needs twenty two"},
     ]},
   {
+    questionId: "7",
     questionText: "Subtraction",
     questionType: "items",
     questionItems: [
@@ -105,6 +139,7 @@ const getDefaultMathQuestions = () => [
       {id: 3, checked: false, questionText: "Subtracts two double digit #s e.g. student has twenty two blocks and needs eleven"},
     ]},
   {
+    questionId: "8",
     questionText: "Colors and Shapes",
     questionType: "items",
     questionItems: [
@@ -113,6 +148,7 @@ const getDefaultMathQuestions = () => [
       {id: 3, checked: false, questionText: "Sorts similar items with similar attributes into groups by color and shape\ne.g nuts and bolts by size and shape"},
     ]},
   {
+    questionId: "9",
     questionText: "Counts Sets of Objects",
     questionType: "items",
     questionItems: [
@@ -121,6 +157,7 @@ const getDefaultMathQuestions = () => [
       {id: 3, checked: false, questionText: "When requested student selects a set of objects (selecting from 20 objects) e.g. Student can identify grooming items (comb, brush and hair dryer) from a group containing 17 other non-related items (For, book, blocks, etc.)"},
     ]},
   {
+    questionId: "10",
     questionText: "Uses Money",
     questionType: "items",
     questionItems: [
@@ -129,6 +166,7 @@ const getDefaultMathQuestions = () => [
       {id: 3, checked: false, questionText: "Using bills and quarters, pays with closet coin combination e.g. basketball game hot dog for $1.59; student pays with $1.75\n* Makes change\n* Counts change from purchase"},
     ]},
   {
+    questionId: "11",
     questionText: "Time Telling",
     questionType: "items",
     questionItems: [
@@ -137,6 +175,7 @@ const getDefaultMathQuestions = () => [
       {id: 3, checked: false, questionText: "Reads standard clock e.g. student uses clock to transition any time of day\n* Uses TV schedules\n* Reads and applies transportation schedules\n* uses personal calendar to keep track of birthdays, holidays, and special events"},
     ]},
   {
+    questionId: "12",
     questionText: "Measurement (FLS only)",
     questionType: "items",
     questionItems: [

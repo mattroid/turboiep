@@ -33,7 +33,7 @@ class Question extends Component {
       <div className={cx(this.props.className, s.questionRow)}>
         <QuestionItem isSelected={false} itemText={this.props.question.questionText}  />
         {qItems.map((x, i) =>
-              <QuestionItem key={i} isSelected={x.checked} itemText={x.questionText} onSelected={e=>{this.props.onSelection(this.props.studentIndex,this.props.rowIndex, x.id)}} />
+              <QuestionItem key={i} isSelected={x.checked} itemText={x.questionText} onSelected={e=>{this.props.onSelection(this.props.studentId,this.props.studentIndex,this.props.rowIndex, x.id)}} />
             )
         }
       </div>
