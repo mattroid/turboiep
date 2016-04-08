@@ -15,4 +15,4 @@ By answering profiling questions on a student, we can take care of some of the l
   * Provide a platform for tracking progress on goals 
 
 ---
-Made by Matthew O'Connor ([mattroid](http://teamwic.com)) 
+Made by Matthew O'Connor (mattroid)
