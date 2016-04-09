@@ -40,8 +40,14 @@ router.get('/', async (req, res, next) => {
       return;
     }
 
+    let plaintext = false;
     let fileName = join(CONTENT_DIR, `${path === '/' ? '/index' : path}.jade`);
     if (!(await fileExists(fileName))) {
+      plaintext = true;
+      fileName = join(CONTENT_DIR, `${path === '/' ? '/index' : path}.txt`);
+    }
+    if (!(await fileExists(fileName))) {
+      plaintext = false;
       fileName = join(CONTENT_DIR, `${path}/index.jade`);
     }
 
@@ -49,7 +55,9 @@ router.get('/', async (req, res, next) => {
       res.status(404).send({ error: `The page '${path}' is not found.` });
     } else {
       const source = await readFile(fileName, { encoding: 'utf8' });
-      const content = parseJade(path, source);
+      let content = source;
+      if (!plaintext)
+        content = parseJade(path, source);
       res.status(200).send(content);
     }
   } catch (err) {

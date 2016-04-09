@@ -12,10 +12,10 @@ import cx from 'classnames'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Question.scss'
 import QuestionItem from './QuestionItem'
-import {Table, Column, Cell} from 'fixed-data-table'
+import { Table, Column, Cell } from 'fixed-data-table'
 import update from 'react-addons-update'
-import {connect} from 'react-redux'
-import {setAnswer} from '../../../../actions/SurveyActions'
+import { connect } from 'react-redux'
+import { setAnswer } from '../../../../actions/SurveyActions'
 
 class Question extends Component {
   static propTypes = {
@@ -31,26 +31,26 @@ class Question extends Component {
     let qItems = this.props.question.questionItems || [];
     return (
       <div className={cx(this.props.className, s.questionRow)}>
-        <QuestionItem isSelected={false} itemText={this.props.question.questionText}  />
+        <QuestionItem isSelected={false} itemText={this.props.question.questionText} />
         {qItems.map((x, i) =>
-              <QuestionItem key={i} isSelected={x.checked} itemText={x.questionText} onSelected={e=>{this.props.onSelection(this.props.studentId,this.props.studentIndex,this.props.rowIndex, x.id)}} />
+              <QuestionItem key={i} isSelected={x.checked} itemText={x.questionText} onSelected={e => {this.props.onSelection(this.props.studentId, this.props.studentIndex, this.props.rowIndex, x.id)}} />
             )
         }
       </div>
     )
   }
 }
-const mapStateToProps = (state)=>{
+const mapStateToProps = (state) => {
   return {
   }
 }
-const mapDispatchToProps = (dispatch)=>{
+const mapDispatchToProps = (dispatch) => {
   return {
-    onSelection: (studentId, studentIndex, row_index, id) =>{
-      dispatch(setAnswer(studentId, studentIndex,row_index,id))
+    onSelection: (studentId, studentIndex, row_index, id) => {
+      dispatch(setAnswer(studentId, studentIndex, row_index, id))
     }
   }
 }
-Question = connect(null,mapDispatchToProps)(Question);
+Question = connect(null, mapDispatchToProps)(Question);
 
 export default withStyles(Question, s)

@@ -52,11 +52,17 @@ class App extends Component {
     this.removeCss();
   }
 
+
   render() {
+    const style = {
+      padding: '15px'
+    }
     return !this.props.error ? (
       <div>
         <Header />
+        <div style={style}>
         {this.props.children}
+        </div>
         {/* <Feedback /> */}
         <Footer />
       </div>

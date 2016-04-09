@@ -12,27 +12,27 @@ const getStudents = () => {
   const students = fetch('/api/students')
   return students
 }
-const selectStudent = (state, action) =>{
-  return update(state,{selectedStudentIndex: {$set: action.studentIndex}})
+const selectStudent = (state, action) => {
+  return update(state, { selectedStudentIndex: { $set: action.studentIndex } })
 }
-const addStudent = (state, action)=>{
-  let newState = update(state,{students: {$push: [action.student]},
-      selectedStudentIndex: {$set: state.students.length}
+const addStudent = (state, action) => {
+  let newState = update(state, { students: { $push: [action.student] },
+      selectedStudentIndex: { $set: state.students.length }
   })
   return newState
 
 }
-const setAnswer = (state, action)=> {
-  let newRowQuestions = _.map(state.students[state.selectedStudentIndex].questions[action.row_index].questionItems,(o)=>{
+const setAnswer = (state, action) => {
+  let newRowQuestions = _.map(state.students[state.selectedStudentIndex].questions[action.row_index].questionItems, (o) => {
     let x = _.clone(o)
-    x.checked = o.id==action.id ? !o.checked: false
+    x.checked = o.id == action.id ? !o.checked : false
     return x
   })
-  let newstate = update(state,{
-      students:
-        {[state.selectedStudentIndex]:
-          {questions:
-            {[action.row_index]: {questionItems: {$set: newRowQuestions}}
+  let newstate = update(state, {
+    students:
+        { [state.selectedStudentIndex]:
+          { questions:
+            { [action.row_index]: { questionItems: { $set: newRowQuestions } }
             }
           }
         }

@@ -14,9 +14,9 @@ import s from './SurveyPage.scss'
 import Link from '../Link'
 import QuestionItems from './QuestionTypes/QuestionItems'
 import Question1to4 from './QuestionTypes/Question1to4'
-import {Table, Column, Cell} from 'fixed-data-table'
+import { Table, Column, Cell } from 'fixed-data-table'
 import update from 'react-addons-update'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 class SurveyPage extends Component {
 
@@ -27,7 +27,7 @@ class SurveyPage extends Component {
   }
 
   render() {
-    this.student = this.props.student || {name:'', headerItems:[],questions:[]}
+    this.student = this.props.student || { name:'', headerItems:[], questions:[] }
     this.selectedIndex = this.props.selectedStudentIndex || 0
     return (
       <div className={cx(s.questionList)}>
@@ -35,13 +35,13 @@ class SurveyPage extends Component {
         <h3>{'Functional Math'}</h3>
         <QuestionItems className={cx(s.questionHeaders)} question={this.student.headerItems} />
         {this.student.questions.map((x, i) => {
-                    switch(x.questionType){
-                      case "items":
+          switch (x.questionType) {
+                      case 'items':
                         return <QuestionItems key={i} studentId={this.student._id} studentIndex={this.selectedIndex} rowIndex={i} question={x} />
-                      case "1to4":
+                      case '1to4':
                         return <Question1to4 key={i} studentIndex={this.selectedIndex} rowIndex={i} question={x} />
                     }
-                }
+        }
             )
         }
       </div>
@@ -49,17 +49,17 @@ class SurveyPage extends Component {
   }
 
 }
-const mapStateToProps = (state)=>{
+const mapStateToProps = (state) => {
   return {
     selectedStudentIndex: state.surveyReducer.selectedStudentIndex,
     student: state.surveyReducer.students[state.surveyReducer.selectedStudentIndex]
   }
 }
-const mapDispatchToProps = (dispatch)=>{
+const mapDispatchToProps = (dispatch) => {
   return {
 
   }
 }
-SurveyPage = connect(mapStateToProps,mapDispatchToProps)(SurveyPage);
+SurveyPage = connect(mapStateToProps, mapDispatchToProps)(SurveyPage);
 
 export default withStyles(SurveyPage, s)

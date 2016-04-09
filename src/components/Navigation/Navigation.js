@@ -27,6 +27,7 @@ class Navigation extends Component {
         <Link className={s.link} to="/survey">Survey</Link>
         <Link className={s.link} to="/student/start">Start Profile</Link>
         <Link className={s.link} to="/profiles">Profiles</Link>
+        <Link className={s.link} to="/summary">Profile Summary</Link>
         <span className={s.spacer}> | </span>
         <Link className={s.link} to="/login">Log in</Link>
         <span className={s.spacer}>or</span>

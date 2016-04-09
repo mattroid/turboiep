@@ -19,9 +19,10 @@ import RegisterPage from './components/RegisterPage';
 import NotFoundPage from './components/NotFoundPage';
 import ErrorPage from './components/ErrorPage';
 import SurveyPage from './components/SurveyPage';
+import ProfileSummaryPage from './components/ProfileSummaryPage';
 import StudentProfiles from './components/StudentProfiles';
 import RegisterStudent from './components/SurveyPage/RegisterStudent';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import configureStore from './stores';
 
 //const store = createStore((state,action) =>{return state;})
@@ -46,11 +47,13 @@ const router = new Router(on => {
 
   on('/register', async () => <RegisterPage />);
 
-  on('/survey', async () => <SurveyPage />);
-  //on('/survey/:id', async (state) => {
-  //  const id = state.params.id;
-  //  return id && <SurveyPage />;
-  //});
+  on('/summary', async (state) => {
+    const response = await fetch('/api/content?path=plep');
+    const content = await response.text();
+    return <ProfileSummaryPage summary={content} />;
+  });
+
+  on('/survey', async (state) => <SurveyPage />);
 
   on('/student/start', async () => <RegisterStudent />);
 

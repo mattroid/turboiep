@@ -10,6 +10,7 @@
 import React, { Component, PropTypes } from 'react';
 import parsePath from 'history/lib/parsePath';
 import Location from '../../core/Location';
+import FlatButton from 'material-ui/lib/flat-button';
 
 function isLeftClickEvent(event) {
   return event.button === 0;
@@ -26,6 +27,7 @@ class Link extends Component {
     query: PropTypes.object,
     state: PropTypes.object,
     onClick: PropTypes.func,
+    button: PropTypes.bool,
   };
 
   handleClick = (event) => {
@@ -65,6 +67,8 @@ class Link extends Component {
 
   render() {
     const { to, query, ...props } = this.props;
+    if (this.props.button)
+      return <FlatButton href={Location.createHref(to, query)} {...props} onClick={this.handleClick} />;
     return <a href={Location.createHref(to, query)} {...props} onClick={this.handleClick} />;
   }
 
