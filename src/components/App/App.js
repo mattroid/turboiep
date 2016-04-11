@@ -55,7 +55,7 @@ class App extends Component {
 
   render() {
     const style = {
-      padding: '15px'
+      padding: '15px',
     }
     return !this.props.error ? (
       <div>
@@ -63,7 +63,6 @@ class App extends Component {
         <div style={style}>
         {this.props.children}
         </div>
-        {/* <Feedback /> */}
         <Footer />
       </div>
     ) : this.props.children;

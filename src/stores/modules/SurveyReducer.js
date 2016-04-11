@@ -3,7 +3,12 @@
  */
 
 import { selectStudent, setAnswer, addStudent, INITIAL_STATE } from '../../core/survey';
-import { SAVED_STUDENT, SELECT_ANSWER, SELECT_STUDENT, ADD_STUDENT } from '../../actions/SurveyActions'
+import {
+  SAVED_STUDENT,
+  SELECT_ANSWER,
+  SELECT_STUDENT,
+  ADD_STUDENT
+} from '../../actions/SurveyActions'
 
 export default function SurveyReducer(state = INITIAL_STATE, action) {
   switch (action.type) {

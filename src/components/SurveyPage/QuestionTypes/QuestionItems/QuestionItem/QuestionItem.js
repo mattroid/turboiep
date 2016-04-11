@@ -11,25 +11,28 @@ import React, { Component, PropTypes } from 'react'
 import cx from 'classnames'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './QuestionItem.scss'
-import { Table, Column, Cell } from 'fixed-data-table'
 
 class QuestionItem extends Component {
+
+  constructor() {
+    this.handleClick.bind(this)
+  }
 
   static propTypes = {
     className: PropTypes.string,
     itemText: PropTypes.string,
     isSelected: PropTypes.bool,
-    onSelected: PropTypes.func
+    onSelected: PropTypes.func,
   }
 
-  handleClick(event) {
+  handleClick() {
     this.props.onSelected();
   }
 
   render() {
     return (
-        <div onClick={this.handleClick.bind(this)}
-             className={cx(s.questionItem, { [s.active]:this.props.isSelected })}>
+        <div onClick={this.handleClick}
+             className={cx(s.questionItem, { [s.active]: this.props.isSelected })}>
           {this.props.itemText}
         </div>
     )

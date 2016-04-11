@@ -1,4 +1,4 @@
-jest.dontMock('../SurveyPage');
+jest.dontMock('../SurveyPage'); // eslint-disable-line no-undef
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -10,20 +10,11 @@ describe('profile questionItems', () => {
 
   it('should turn green when clicked', () => {
 
-    var surveyPage = TestUtils.renderIntoDocument(
+    const surveyPage = TestUtils.renderIntoDocument(
       <SurveyPage />
     );
 
-    var surveyPageNode = ReactDOM.findDOMNode(surveyPage);
-
-    // Verify that it's Off by default
-    //expect(checkboxNode.textContent).toEqual('Off');
-
-    // Simulate a click and verify that it is now On
-    //TestUtils.Simulate.change(
-    //  TestUtils.findRenderedDOMComponentWithTag(checkbox, 'input')
-    //);
-    //expect(checkboxNode.textContent).toEqual('On');
+    const surveyPageNode = ReactDOM.findDOMNode(surveyPage);
   });
 
 });

@@ -10,7 +10,6 @@
 import React from 'react';
 import Router from 'react-routing/src/Router';
 import fetch from './core/fetch';
-import survey from './core/survey';
 import App from './components/App';
 import ContentPage from './components/ContentPage';
 import ContactPage from './components/ContactPage';
@@ -25,12 +24,10 @@ import RegisterStudent from './components/SurveyPage/RegisterStudent';
 import { Provider } from 'react-redux';
 import configureStore from './stores';
 
-//const store = createStore((state,action) =>{return state;})
 const router = new Router(on => {
+
   on('*', async (state, next) => {
-
     const store = await configureStore()
-
     const component = await next();
     return component &&
       <Provider store={store}>
@@ -47,13 +44,13 @@ const router = new Router(on => {
 
   on('/register', async () => <RegisterPage />);
 
-  on('/summary', async (state) => {
+  on('/summary', async () => {
     const response = await fetch('/api/content?path=plep');
     const content = await response.text();
     return <ProfileSummaryPage summary={content} />;
   });
 
-  on('/survey', async (state) => <SurveyPage />);
+  on('/survey', async () => <SurveyPage />);
 
   on('/student/start', async () => <RegisterStudent />);
 

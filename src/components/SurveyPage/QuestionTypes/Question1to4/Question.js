@@ -12,8 +12,6 @@ import cx from 'classnames'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Question.scss'
 import QuestionItem from './QuestionItem'
-import { Table, Column, Cell } from 'fixed-data-table'
-import update from 'react-addons-update'
 import { connect } from 'react-redux'
 
 class Question extends Component {
@@ -21,7 +19,7 @@ class Question extends Component {
     className: PropTypes.string,
     onSelected: PropTypes.func,
     rowIndex: PropTypes.number,
-    question: PropTypes.object
+    question: PropTypes.object,
   }
 
   render() {
@@ -29,22 +27,22 @@ class Question extends Component {
       <div className={cx(this.props.className, s.questionRow)}>
         <QuestionItem isSelected={false} itemText={this.props.question.questionText} />
         {[1, 2, 3, 4].map((x, i) =>
-              <QuestionItem key={i} isSelected={false} itemText={x} onSelected={e => {this.props.onSelection(this.props.rowIndex, x)}} />
+              <QuestionItem key={i} isSelected={false} itemText={x} onSelected={() =>
+                {this.props.onSelection(this.props.rowIndex, x)}
+              } />
             )
         }
       </div>
     )
   }
 }
-const mapStateToProps = (state) => {
-  return {
-  }
+const mapStateToProps = () => {
+  return {}
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSelection: (row_index, id) => {
+    onSelection: (row_index, id) =>
       dispatch({ type: 'SELECT_ANSWER', row_index, id })
-    }
   }
 }
 Question = connect(null, mapDispatchToProps)(Question);

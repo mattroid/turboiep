@@ -11,11 +11,8 @@ import React, { Component, PropTypes } from 'react'
 import cx from 'classnames'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './SurveyPage.scss'
-import Link from '../Link'
 import QuestionItems from './QuestionTypes/QuestionItems'
 import Question1to4 from './QuestionTypes/Question1to4'
-import { Table, Column, Cell } from 'fixed-data-table'
-import update from 'react-addons-update'
 import { connect } from 'react-redux'
 
 class SurveyPage extends Component {
@@ -23,11 +20,11 @@ class SurveyPage extends Component {
   static propTypes = {
     className: PropTypes.string,
     student: PropTypes.object,
-    selectedStudentIndex: PropTypes.number
+    selectedStudentIndex: PropTypes.number,
   }
 
   render() {
-    this.student = this.props.student || { name:'', headerItems:[], questions:[] }
+    this.student = this.props.student || { name: '', headerItems: [], questions: [] }
     this.selectedIndex = this.props.selectedStudentIndex || 0
     return (
       <div className={cx(s.questionList)}>
@@ -36,11 +33,11 @@ class SurveyPage extends Component {
         <QuestionItems className={cx(s.questionHeaders)} question={this.student.headerItems} />
         {this.student.questions.map((x, i) => {
           switch (x.questionType) {
-                      case 'items':
-                        return <QuestionItems key={i} studentId={this.student._id} studentIndex={this.selectedIndex} rowIndex={i} question={x} />
-                      case '1to4':
-                        return <Question1to4 key={i} studentIndex={this.selectedIndex} rowIndex={i} question={x} />
-                    }
+            case 'items':
+              return <QuestionItems key={i} studentId={this.student._id} studentIndex={this.selectedIndex} rowIndex={i} question={x} />
+            case '1to4':
+              return <Question1to4 key={i} studentIndex={this.selectedIndex} rowIndex={i} question={x} />
+          }
         }
             )
         }

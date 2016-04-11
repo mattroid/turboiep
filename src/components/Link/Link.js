@@ -67,9 +67,12 @@ class Link extends Component {
 
   render() {
     const { to, query, ...props } = this.props;
-    if (this.props.button)
+    if (this.props.button) {
       return <FlatButton href={Location.createHref(to, query)} {...props} onClick={this.handleClick} />;
-    return <a href={Location.createHref(to, query)} {...props} onClick={this.handleClick} />;
+    }
+    return (<a href={Location.createHref(to, query)}
+              {...props}
+              onClick={this.handleClick} />);
   }
 
 }

@@ -3,23 +3,17 @@ import { connect } from 'react-redux'
 import cx from 'classnames'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './RegisterStudent.scss'
-import update from 'react-addons-update'
 import Link from '../../Link'
 import { addStudent } from '../../../actions/SurveyActions'
 import Card from 'material-ui/lib/card/card';
 import CardActions from 'material-ui/lib/card/card-actions';
-import CardHeader from 'material-ui/lib/card/card-header';
-import CardMedia from 'material-ui/lib/card/card-media';
-import CardTitle from 'material-ui/lib/card/card-title';
-import FlatButton from 'material-ui/lib/flat-button';
-import CardText from 'material-ui/lib/card/card-text';
 import TextField from 'material-ui/lib/text-field';
 
 class RegisterStudent extends Component {
 
   static propTypes = {
     className: PropTypes.string,
-    onAddStudent: PropTypes.func
+    onAddStudent: PropTypes.func,
   }
 
   handleNameChange(e) {
@@ -30,13 +24,16 @@ class RegisterStudent extends Component {
     return (
       <Card>
         <form className={cx(s.studentRegisterForm)}>
-          <TextField hintText="Student Name" type="text" ref={(s) => this.StudentName = s} />
+          <TextField hintText="Student Name" type="text" ref={
+            (sName) => this.StudentName = sName
+          } />
 
           <CardActions>
-          <Link button primary to="/survey" onClick={(e) => {
+          <Link button primary to="/survey" onClick={() => {
             this.props.onAddStudent(this.StudentName.getValue())
           }
-          }>Add Student</Link>
+            }
+          >Add Student</Link>
             </CardActions>
         </form>
       </Card>
@@ -44,14 +41,13 @@ class RegisterStudent extends Component {
   }
 
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = () => {
   return {}
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddStudent: (studentName) => {
+    onAddStudent: (studentName) =>
       dispatch(addStudent(studentName))
-    }
   }
 }
 

@@ -5,34 +5,42 @@ import update from 'react-addons-update'
 import _ from 'underscore'
 
 const INITIAL_STATE = {
-  students:[],
-  selectedStudentIndex: 0
+  students: [],
+  selectedStudentIndex: 0,
 }
 const getStudents = () => {
   const students = fetch('/api/students')
   return students
 }
-const selectStudent = (state, action) => {
-  return update(state, { selectedStudentIndex: { $set: action.studentIndex } })
-}
+const selectStudent = (state, action) =>
+  update(state, { selectedStudentIndex: { $set: action.studentIndex } })
+
 const addStudent = (state, action) => {
-  let newState = update(state, { students: { $push: [action.student] },
-      selectedStudentIndex: { $set: state.students.length }
+  const newState = update(
+    state,
+    { students: { $push: [action.student] },
+    selectedStudentIndex: { $set: state.students.length },
   })
   return newState
-
 }
 const setAnswer = (state, action) => {
-  let newRowQuestions = _.map(state.students[state.selectedStudentIndex].questions[action.row_index].questionItems, (o) => {
+  const newRowQuestions = _.map(
+    state.students[state.selectedStudentIndex]
+      .questions[action.row_index]
+      .questionItems, (o) => {
     let x = _.clone(o)
-    x.checked = o.id == action.id ? !o.checked : false
+    x.checked = o.id === action.id ? !o.checked : false
     return x
   })
   let newstate = update(state, {
     students:
         { [state.selectedStudentIndex]:
           { questions:
-            { [action.row_index]: { questionItems: { $set: newRowQuestions } }
+            {
+              [action.row_index]:
+                { questionItems:
+                  { $set: newRowQuestions },
+                }
             }
           }
         }
@@ -46,4 +54,3 @@ export {
   selectStudent,
   INITIAL_STATE
 }
-
