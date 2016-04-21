@@ -1,20 +1,18 @@
+/* global define, it, describe, expect */
 jest.dontMock('../SurveyPage'); // eslint-disable-line no-undef
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import TestUtils from 'react-addons-test-utils';
+import React from 'react'
+// import ReactDOM from 'react-dom'
+import TestUtils from 'react-addons-test-utils'
 
-const SurveyPage = require('../SurveyPage');
+const SurveyPage = require('../SurveyPage')
 
-describe('profile questionItems', () => {
-
-  it('should turn green when clicked', () => {
-
+describe('profile page', () => {
+  it('should exist', () => {
     const surveyPage = TestUtils.renderIntoDocument(
       <SurveyPage />
     );
 
-    const surveyPageNode = ReactDOM.findDOMNode(surveyPage);
+    expect(TestUtils.isCompositeComponent(surveyPage)).toBeTruthy()
   });
-
 });

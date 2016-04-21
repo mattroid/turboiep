@@ -11,6 +11,7 @@ import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './ProfileSummaryPage.scss';
 import { connect } from 'react-redux'
+import { selectStudent } from '../../actions'
 import Card from 'material-ui/lib/card/card';
 import CardHeader from 'material-ui/lib/card/card-header';
 import CardText from 'material-ui/lib/card/card-text';
@@ -35,18 +36,16 @@ class ProfileSummaryPage extends Component {
   }
 
 }
-const mapStateToProps = (state) =>{
+const mapStateToProps = (state) =>
+  ({
+    student: state.surveyReducer.students[state.surveyReducer.selectedStudentIndex],
+  })
 
-    student: state.surveyReducer.students[state.surveyReducer.selectedStudentIndex]
-  }
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onProfileSelected: (index) => {dispatch(selectStudent(index))}
-  }
-}
+const mapDispatchToProps = (dispatch) =>
+  ({
+    onProfileSelected: (index) => {dispatch(selectStudent(index))},
+  })
 
 ProfileSummaryPage = connect(mapStateToProps, mapDispatchToProps)(ProfileSummaryPage);
 
 export default withStyles(ProfileSummaryPage, s);
-

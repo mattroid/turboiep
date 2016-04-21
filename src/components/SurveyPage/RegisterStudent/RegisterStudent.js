@@ -19,21 +19,20 @@ class RegisterStudent extends Component {
   handleNameChange(e) {
     this.setState({ name: e.target.value })
   }
+  handleNameClicked() {
+    this.props.onAddStudent(this.StudentName.getValue())
+  }
 
   render() {
     return (
       <Card>
         <form className={cx(s.studentRegisterForm)}>
-          <TextField hintText="Student Name" type="text" ref={
-            (sName) => this.StudentName = sName
-          } />
+          <TextField hintText="Student Name" type="text" ref="studentName"/>
 
           <CardActions>
-          <Link button primary to="/survey" onClick={() => {
-            this.props.onAddStudent(this.StudentName.getValue())
-          }
-            }
-          >Add Student</Link>
+          <Link button primary to="/survey" onClick={this.handleNameClicked()}>
+            Add Student
+          </Link>
             </CardActions>
         </form>
       </Card>
@@ -41,15 +40,12 @@ class RegisterStudent extends Component {
   }
 
 }
-const mapStateToProps = () => {
-  return {}
-}
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapStateToProps = () => ({})
+const mapDispatchToProps = (dispatch) =>
+  ({
     onAddStudent: (studentName) =>
-      dispatch(addStudent(studentName))
-  }
-}
+      dispatch(addStudent(studentName)),
+  })
 
 RegisterStudent = connect(mapStateToProps, mapDispatchToProps)(RegisterStudent);
 

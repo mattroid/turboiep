@@ -28,11 +28,11 @@ const setAnswer = (state, action) => {
     state.students[state.selectedStudentIndex]
       .questions[action.row_index]
       .questionItems, (o) => {
-    let x = _.clone(o)
+    const x = _.clone(o)
     x.checked = o.id === action.id ? !o.checked : false
     return x
   })
-  let newstate = update(state, {
+  const newstate = update(state, {
     students:
         { [state.selectedStudentIndex]:
           { questions:
@@ -40,10 +40,10 @@ const setAnswer = (state, action) => {
               [action.row_index]:
                 { questionItems:
                   { $set: newRowQuestions },
-                }
-            }
-          }
-        }
+                },
+            },
+          },
+        },
   })
   return newstate
 }
@@ -52,5 +52,5 @@ export {
   addStudent,
   setAnswer,
   selectStudent,
-  INITIAL_STATE
+  INITIAL_STATE,
 }

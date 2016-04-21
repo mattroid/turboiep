@@ -7,7 +7,7 @@ import {
   SAVED_STUDENT,
   SELECT_ANSWER,
   SELECT_STUDENT,
-  ADD_STUDENT
+  ADD_STUDENT,
 } from '../../actions/SurveyActions'
 
 export default function SurveyReducer(state = INITIAL_STATE, action) {
@@ -20,6 +20,8 @@ export default function SurveyReducer(state = INITIAL_STATE, action) {
       return state
     case SAVED_STUDENT:
       return addStudent(state, action)
+    default:
+      return state
   }
   return state
 }

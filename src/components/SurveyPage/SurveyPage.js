@@ -34,9 +34,22 @@ class SurveyPage extends Component {
         {this.student.questions.map((x, i) => {
           switch (x.questionType) {
             case 'items':
-              return <QuestionItems key={i} studentId={this.student._id} studentIndex={this.selectedIndex} rowIndex={i} question={x} />
+              return (<QuestionItems
+                key={i}
+                studentId={this.student._id}
+                studentIndex={this.selectedIndex}
+                rowIndex={i}
+                question={x}
+              />)
             case '1to4':
-              return <Question1to4 key={i} studentIndex={this.selectedIndex} rowIndex={i} question={x} />
+              return (<Question1to4
+                key={i}
+                studentIndex={this.selectedIndex}
+                rowIndex={i}
+                question={x}
+              />)
+            default:
+              return <div>{'No question type available'}</div>
           }
         }
             )
@@ -46,17 +59,14 @@ class SurveyPage extends Component {
   }
 
 }
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = (state) =>
+  ({
     selectedStudentIndex: state.surveyReducer.selectedStudentIndex,
-    student: state.surveyReducer.students[state.surveyReducer.selectedStudentIndex]
-  }
-}
-const mapDispatchToProps = (dispatch) => {
-  return {
+    student: state.surveyReducer.students[state.surveyReducer.selectedStudentIndex],
+  })
 
-  }
-}
+const mapDispatchToProps = () => ({})
+
 SurveyPage = connect(mapStateToProps, mapDispatchToProps)(SurveyPage);
 
 export default withStyles(SurveyPage, s)

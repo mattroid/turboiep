@@ -25,7 +25,6 @@ import { Provider } from 'react-redux';
 import configureStore from './stores';
 
 const router = new Router(on => {
-
   on('*', async (state, next) => {
     const store = await configureStore()
     const component = await next();
@@ -33,7 +32,6 @@ const router = new Router(on => {
       <Provider store={store}>
         <App context={state.context}>{component}</App>
       </Provider>;
-
   });
 
   on('/contact', async () => <ContactPage />);

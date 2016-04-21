@@ -64,14 +64,14 @@ studentService.after({
 /* eslint-disable */
 
 const getDefaultHeaderItems = () =>
-  {
-    questionText: '\u00a0',
+  ({
+    questionText: `\u00a0`,
     questionItems: [
         { id: 1, checked: false, questionText: 'Emerging' },
         { id: 2, checked: false, questionText: 'Begining' },
         { id: 3, checked: false, questionText: 'Traditional' },
       ],
-  }
+  })
 
 const getDefaultMathQuestions = () => [
   {

@@ -2,7 +2,7 @@
  * Created by matto on 3/11/16.
  */
 import React, { Component, PropTypes } from 'react'
-import cx from 'classnames'
+// import cx from 'classnames'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './StudentProfiles.scss'
 import { connect } from 'react-redux'
@@ -18,38 +18,40 @@ class StudentProfiles extends Component {
     profiles: PropTypes.array,
     onProfileSelected: PropTypes.func,
   }
-
+  handleClick(i) {
+    this.props.onProfileSelected(i)
+  }
   render() {
     return (
       <div>
-        {this.props.profiles.map((x, i) => {
-          return (<Card key={i}>
+        {this.props.profiles.map((x, i) =>
+          (<Card key={i}>
                   <CardHeader title={x.name} />
                   <CardText>
+                    {''}
                   </CardText>
                   <CardActions>
                     <Link to="/survey" button primary
-                          onClick={
-                            (e) => this.props.onProfileSelected(i)
-                            }
-                          key={i}>{'open'}</Link>
+                      onClick={
+                        this.handleClick(i)
+                      }
+                      key={i}
+                    >{'open'}</Link>
                   </CardActions>
                 </Card>)
-        })}
+        )}
       </div>
     )
   }
 }
-const mapStateToProps = (state) => {
-  return {
-    profiles: state.surveyReducer.students
-  }
-}
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onProfileSelected: (index) => {dispatch(selectStudent(index))}
-  }
-}
+const mapStateToProps = (state) =>
+  ({
+    profiles: state.surveyReducer.students,
+  })
+const mapDispatchToProps = (dispatch) =>
+  ({
+    onProfileSelected: (index) => {dispatch(selectStudent(index))},
+  })
 StudentProfiles = connect(mapStateToProps, mapDispatchToProps)(StudentProfiles);
 
 export default withStyles(StudentProfiles, s)

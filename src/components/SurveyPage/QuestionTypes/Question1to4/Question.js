@@ -20,6 +20,7 @@ class Question extends Component {
     onSelected: PropTypes.func,
     rowIndex: PropTypes.number,
     question: PropTypes.object,
+    onSelection: PropTypes.func,
   }
 
   render() {
@@ -27,24 +28,26 @@ class Question extends Component {
       <div className={cx(this.props.className, s.questionRow)}>
         <QuestionItem isSelected={false} itemText={this.props.question.questionText} />
         {[1, 2, 3, 4].map((x, i) =>
-              <QuestionItem key={i} isSelected={false} itemText={x} onSelected={() =>
-                {this.props.onSelection(this.props.rowIndex, x)}
-              } />
+              <QuestionItem
+                key={i}
+                isSelected={false}
+                itemText={x}
+                onSelected={
+                  this.props.onSelection(this.props.rowIndex, x)
+                }
+              />
             )
         }
       </div>
     )
   }
 }
-const mapStateToProps = () => {
-  return {}
-}
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSelection: (row_index, id) =>
-      dispatch({ type: 'SELECT_ANSWER', row_index, id })
-  }
-}
-Question = connect(null, mapDispatchToProps)(Question);
+const mapStateToProps = () => ({})
+const mapDispatchToProps = (dispatch) =>
+  ({
+    onSelection: (rowIndex, id) =>
+      dispatch({ type: 'SELECT_ANSWER', rowIndex, id }),
+  })
+Question = connect(mapStateToProps, mapDispatchToProps)(Question);
 
 export default withStyles(Question, s)

@@ -31,23 +31,32 @@ class Question extends Component {
       <div className={cx(this.props.className, s.questionRow)}>
         <QuestionItem isSelected={false} itemText={this.props.question.questionText} />
         {qItems.map((x, i) =>
-              <QuestionItem key={i} isSelected={x.checked} itemText={x.questionText} onSelected={() => {this.props.onSelection(this.props.studentId, this.props.studentIndex, this.props.rowIndex, x.id)}} />
+              <QuestionItem
+                key={i}
+                isSelected={x.checked}
+                itemText={x.questionText}
+                onSelected={
+                  this.props.onSelection(
+                    this.props.studentId,
+                    this.props.studentIndex,
+                    this.props.rowIndex, x.id
+                  )
+                 }
+              />
             )
         }
       </div>
     )
   }
 }
-const mapStateToProps = () => {
-  return {
-  }
-}
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSelection: (studentId, studentIndex, row_index, id) =>
-      dispatch(setAnswer(studentId, studentIndex, row_index, id))
-  }
-}
-Question = connect(null, mapDispatchToProps)(Question);
+const mapStateToProps = () => ({})
+
+const mapDispatchToProps = (dispatch) =>
+  ({
+    onSelection: (studentId, studentIndex, rowIndex, id) =>
+      dispatch(setAnswer(studentId, studentIndex, rowIndex, id)),
+  })
+
+Question = connect(mapStateToProps, mapDispatchToProps)(Question);
 
 export default withStyles(Question, s)

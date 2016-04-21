@@ -18,8 +18,8 @@ export default async function configureStore() {
     { surveyReducer:
       {
         students: initialStudent,
-        selectedStudentIndex:0
-      }
+        selectedStudentIndex: 0,
+      },
     },
     applyMiddleware(thunk)
   );

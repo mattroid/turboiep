@@ -13,16 +13,15 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './QuestionItem.scss'
 
 class QuestionItem extends Component {
-
-  constructor() {
-    this.handleClick.bind(this)
-  }
-
   static propTypes = {
     className: PropTypes.string,
     itemText: PropTypes.string,
     isSelected: PropTypes.bool,
     onSelected: PropTypes.func,
+  }
+
+  constructor() {
+    this.handleClick.bind(this)
   }
 
   handleClick() {
@@ -31,8 +30,10 @@ class QuestionItem extends Component {
 
   render() {
     return (
-        <div onClick={this.handleClick}
-             className={cx(s.questionItem, { [s.active]: this.props.isSelected })}>
+        <div
+          onClick={this.handleClick}
+          className={cx(s.questionItem, { [s.active]: this.props.isSelected })}
+        >
           {this.props.itemText}
         </div>
     )
